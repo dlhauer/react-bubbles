@@ -8,7 +8,6 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  // console.log('colors: ', colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -22,7 +21,6 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then( res => {
-        // console.log(res.data);
         updateColors( colors.map( color => {
           return color.id === res.data.id ? res.data : color 
       }))
@@ -34,9 +32,14 @@ const ColorList = ({ colors, updateColors }) => {
 
   const deleteColor = color => {
     // make a delete request to delete this color
-    console.log('color.id in deleteColor', color.id);
-    // axiosWithAuth()
-    //   .delete()
+    // console.log('color.id in deleteColor', color.id);
+    axiosWithAuth()
+      .delete(`/colors/${color.id}`)
+      .then( res => {
+        updateColors( colors.filter( color => {
+          return color.id !== res.data
+        }))
+      })
   };
 
   return (
@@ -46,7 +49,6 @@ const ColorList = ({ colors, updateColors }) => {
         {colors.map(color => (
           <li key={color.color} onClick={() => {
             editColor(color)
-            // console.log(colorToEdit); // Maaaaaaaaaaybe come back here!
             }}>
             <span>
               <span className="delete" onClick={e => {
