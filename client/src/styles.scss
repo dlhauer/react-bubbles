@@ -97,3 +97,19 @@ form {
     margin-top: 16px;
   }
 }
+
+.add-color-form {
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+
+  button {
+      width: 100px; 
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    color: white;
+    background-color: dodgerblue;
+    align-self: center;
+  }
+}
